@@ -146,6 +146,14 @@ class CacheSet {
     };
 
     const result = this.mapper(input, callback);
+
+    if (result.then != null) {
+      return result.then((result) => {
+        this.cache = nextCache;
+        return result;
+      })
+    }
+    
     this.cache = nextCache;
     return result;
   }
